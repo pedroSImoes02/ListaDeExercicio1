@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <!-- Q5 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="q-number">05</div>
+      <h2>Verificação de Idade</h2>
+      <span class="tag">if / else if</span>
+    </div>
+    <div class="card-body">
+      <p class="enunciado">Informe sua idade. O programa dirá se você é Criança (menor de 12), Adolescente (12–17) ou Adulto (18+).</p>
+      <div class="form-row">
+        <div class="input-group">
+          <label for="q5-idade">Sua idade</label>
+          <input type="number" id="q5-idade" placeholder="Ex: 15" min="0" max="120">
+        </div>
+        <button onclick="verificarIdade()">Verificar</button>
+      </div>
+      <div class="resultado" id="q5-resultado"></div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="q-number">06</div>
+      <h2>Par ou Ímpar</h2>
+      <span class="tag">if / else + %</span>
+    </div>
+    <div class="card-body">
+      <p class="enunciado">Digite um número inteiro e descubra se ele é par ou ímpar.</p>
+      <div class="form-row">
+        <div class="input-group">
+          <label for="q6-numero">Número</label>
+          <input type="number" id="q6-numero" placeholder="Ex: 42">
+        </div>
+        <button onclick="verificarParImpar()">Verificar</button>
+      </div>
+      <div class="resultado" id="q6-resultado"></div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="q-number">07</div>
+      <h2>Situação do Aluno</h2>
+      <span class="tag">else if</span>
+    </div>
+    <div class="card-body">
+      <p class="enunciado">Digite uma nota de 0 a 10 e veja a situação: Aprovado (≥7), Recuperação (≥5 e &lt;7) ou Reprovado (&lt;5).</p>
+      <div class="form-row">
+        <div class="input-group">
+          <label for="q7-nota">Nota (0–10)</label>
+          <input type="number" id="q7-nota" placeholder="Ex: 6.5" min="0" max="10" step="0.1">
+        </div>
+        <button onclick="verificarNota()">Verificar</button>
+      </div>
+      <div class="resultado" id="q7-resultado"></div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="q-number">08</div>
+      <h2>Positivo, Negativo ou Zero</h2>
+      <span class="tag">ternário</span>
+    </div>
+    <div class="card-body">
+      <p class="enunciado">Digite um número e o programa usará o operador ternário para dizer se é Positivo, Negativo ou Zero.</p>
+      <div class="form-row">
+        <div class="input-group">
+          <label for="q8-numero">Número</label>
+          <input type="number" id="q8-numero" placeholder="Ex: -7">
+        </div>
+        <button onclick="verificarSinal()">Verificar</button>
+      </div>
+      <div class="resultado" id="q8-resultado"></div>
+    </div>
+  </div>
+
+  <script>
+  function mostrarResultado(id, mensagem, tipo) {
+    const el = document.getElementById(id);
+    el.textContent = mensagem;
+    el.className = 'resultado show ' + tipo;
+  }
+
+  function verificarIdade() {
+    const idade = Number(document.getElementById('q5-idade').value);
+    if (document.getElementById('q5-idade').value === '') {
+      mostrarResultado('q5-resultado', 'Por favor, insira uma idade.', 'error'); return;
+    }
+    let msg, tipo;
+    if (idade < 12) {
+      msg = 'Criança'; tipo = 'warning';
+    } else if (idade >= 12 && idade <= 17) {
+      msg = 'Adolescente'; tipo = 'warning';
+    } else {
+      msg = 'Adulto'; tipo = 'success';
+    }
+    mostrarResultado('q5-resultado', '→ ' + msg, tipo);
+  }
+
+  function verificarParImpar() {
+    if (document.getElementById('q6-numero').value === '') {
+      mostrarResultado('q6-resultado', 'Por favor, insira um número.', 'error'); return;
+    }
+    const numero = Number(document.getElementById('q6-numero').value);
+    const msg = numero % 2 === 0 ? 'Par' : 'Ímpar';
+    mostrarResultado('q6-resultado', '→ ' + numero + ' é ' + msg, 'success');
+  }
+
+  function verificarNota() {
+    const nota = Number(document.getElementById('q7-nota').value);
+    if (document.getElementById('q7-nota').value === '') {
+      mostrarResultado('q7-resultado', 'Por favor, insira uma nota.', 'error'); return;
+    }
+    if (nota < 0 || nota > 10) {
+      mostrarResultado('q7-resultado', 'Nota deve ser entre 0 e 10.', 'error'); return;
+    }
+    let msg, tipo;
+    if (nota >= 7) {
+      msg = 'Aprovado'; tipo = 'success';
+    } else if (nota >= 5) {
+      msg = 'Recuperação'; tipo = 'warning';
+    } else {
+      msg = 'Reprovado'; tipo = 'error';
+    }
+    mostrarResultado('q7-resultado', '→ ' + msg + ' (nota: ' + nota + ')', tipo);
+  }
+
+  function verificarSinal() {
+    if (document.getElementById('q8-numero').value === '') {
+      mostrarResultado('q8-resultado', 'Por favor, insira um número.', 'error'); return;
+    }
+    const numero = Number(document.getElementById('q8-numero').value);
+    const resultado = numero > 0 ? 'Positivo' : numero < 0 ? 'Negativo' : 'Zero';
+    const tipo = numero > 0 ? 'success' : numero < 0 ? 'error' : 'warning';
+    mostrarResultado('q8-resultado', '→ ' + numero + ' é ' + resultado, tipo);
+  }
+
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        input.closest('.card').querySelector('button').click();
+      }
+    });
+  });
+</script>
+</body>
+</html>
